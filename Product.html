@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store</title>
+  <link rel="stylesheet" href="Product.css">
+  <script src="Product.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Store</h1>
+      <input type="text" id="search" placeholder="Search By Name" style="height: 20px;width:200px ;text-align: center;font-size: medium;">
+      <select id="filter" style="height: 26px;width:200px ;text-align: center;font-size: medium;">
+        <option value="">All Types</option>
+        <!-- Add options dynamically -->
+      </select>
+      <select id="sort"  style="height: 26px;width:200px ;text-align: center;font-size: medium;position: relative;left:-40px ;">
+        <option value="asc">Price: Low to High</option>
+        <option value="desc">Price: High to Low</option>
+      </select>
+    </header>
+    <main>
+      <div id="products">
+      </div>
+      <div id="cart">
+        <h2>Cart</h2>
+        <ul id="cart-items"></ul>
+        <button id="clear-cart">Clear Cart</button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
