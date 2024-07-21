@@ -1,5 +1,4 @@
 const apiUrl = 'https://fakestoreapi.com/products'; 
-
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.getElementById('products');
   const cartContainer = document.getElementById('cart-items');
@@ -7,11 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterSelect = document.getElementById('filter');
   const sortSelect = document.getElementById('sort');
   const clearCartButton = document.getElementById('clear-cart');
-  
   let products = [];
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-  // Fetch all products
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -20,8 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
       populateFilterOptions(products);
       renderCart();
     });
-
-  // Render products
   function renderProducts(products) {
     productsContainer.innerHTML = products.map(product => `
       <div class="product">
@@ -33,8 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `).join('');
   }
-
-  // Render cart
   function renderCart() {
     cartContainer.innerHTML = cart.map(item => `
       <li class="cart-item">
@@ -46,29 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
     localStorage.setItem('cart', JSON.stringify(cart));
   }
-
-  // Add to cart
   window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
     const cartItem = cart.find(item => item.id === productId);
-    
     if (cartItem) {
       cartItem.quantity++;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-
     renderCart();
   }
-
-  // Increase quantity
   window.increaseQuantity = function(productId) {
     const cartItem = cart.find(item => item.id === productId);
     cartItem.quantity++;
     renderCart();
   }
-
-  // Decrease quantity
   window.decreaseQuantity = function(productId) {
     const cartItem = cart.find(item => item.id === productId);
     if (cartItem.quantity > 1) {
@@ -78,20 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderCart();
   }
-
-  // Remove from cart
   window.removeFromCart = function(productId) {
     cart = cart.filter(item => item.id !== productId);
     renderCart();
   }
-
-  // Clear cart
   clearCartButton.addEventListener('click', () => {
     cart = [];
     renderCart();
   });
-
-  // Search products
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     const filteredProducts = products.filter(product =>
@@ -99,8 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     renderProducts(filteredProducts);
   });
-
-  // Filter products by type
   filterSelect.addEventListener('change', () => {
     const selectedType = filterSelect.value;
     const filteredProducts = selectedType ? products.filter(product =>
@@ -108,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ) : products;
     renderProducts(filteredProducts);
   });
-
-  // Sort products by price
   sortSelect.addEventListener('change', () => {
     const sortOrder = sortSelect.value;
     const sortedProducts = [...products].sort((a, b) =>
